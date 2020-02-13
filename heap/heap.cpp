@@ -114,8 +114,9 @@ int insere_FilaPrioridade(FilaPrioridade* fp, char* voo, int prioridade)
 void rebaixarElemento (FilaPrioridade* fp, int pai){
 	
 	struct aeronave varTemp; 
+	int filho;
 	
-		filho = 2 * pai + 1; // passado por parâmetro a posição de um 'pai' é calculada a posição de um 'filho' no array 
+	filho = 2 * pai + 1; // passado por parâmetro a posição de um 'pai' é calculada a posição de um 'filho' no array 
 	
 	while (filho < fp->quantidade ) // Verifica se a posição do 'filho' é menor do que a última posição do array
 	{
@@ -123,7 +124,7 @@ void rebaixarElemento (FilaPrioridade* fp, int pai){
 			if (fp->dados[filho].prioridade < fp->dados[filho + 1].prioridade) //A partir da comparação encontra o 'filho' de maior prioridade
 				filho++;
 		
-		if (fp->dados[pai].prioridade >= fp->dados[fp->dados.prioridade]) //Se o 'pai' possui prioridade maior ou igual a do 'filho', não é necessário continuar movendo o elemento que anteriormente foi colocado no topo da heap.
+		if (fp->dados[pai].prioridade >= fp->dados[filho].prioridade) //Se o 'pai' possui prioridade maior ou igual a do 'filho', não é necessário continuar movendo o elemento que anteriormente foi colocado no topo da heap.
 			break; //Termina o processo
 		 
 		 
@@ -136,13 +137,10 @@ void rebaixarElemento (FilaPrioridade* fp, int pai){
 		 
 		 pai = filho;
 		 
-		 filho = 2 * pai + 1; 
-		 
+		 filho = 2 * pai + 1; 		 
 	}
 	
 }
-
-
 
 int remove_FilaPrioridade(FilaPrioridade* fp){
 	
@@ -153,8 +151,15 @@ int remove_FilaPrioridade(FilaPrioridade* fp){
 	return 1;
 }
 
-int main (){
-	FilaPrioridade* fp;
-	fp = cria_FilaPrioridade();
-	int x = insere_FilaPrioridade(fp, "TAM2132", 6);
+void imprimir_FilaPrioridade(FilaPrioridade* fp)
+{
+	int i;
+	
+	for(i=0; i <fp->quantidade; i++)
+	{
+		printf("Prioridade:(%d)  \t Voo:(%s) \n", fp->dados[i].prioridade, fp->dados[i].voo);
+	}
 }
+
+
+
